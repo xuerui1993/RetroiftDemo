@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.model.alex.retrofitdemo"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+//        忽略rxjava观察者未被使用警告
+        disable 'CheckResult'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':BaseLibrary')
+    implementation project(':CourseModule')
+    implementation 'com.lzy.net:okgo:2.1.4'
+    //可以单独使用，不需要依赖下方的扩展包
+    //noinspection GradleDependency
+    implementation 'com.lzy.net:okrx:0.1.2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //Arouter
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_complie_version"
+}
